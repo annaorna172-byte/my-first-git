@@ -1,36 +1,29 @@
 
 #include <stdio.h>
-#include <math.h>
+#include <string.h>
 
 int main()
 {
-    float a, b, c;
-    float d, root1, root2;
+    char str[100], pattern[100];
+    char *p;
 
-    printf("Enter a, b and c: ");
-    scanf("%f %f %f", &a, &b, &c);
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
 
-    d = b * b - 4 * a * c;
+    printf("Enter pattern: ");
+    fgets(pattern, sizeof(pattern), stdin);
 
-    if (d > 0)
-    {
-        root1 = (-b + sqrt(d)) / (2 * a);
-        root2 = (-b - sqrt(d)) / (2 * a);
+    // Remove newline
+    str[strcspn(str, "\n")] = '\0';
+    pattern[strcspn(pattern, "\n")] = '\0';
 
-        printf("Root 1 = %.2f\n", root1);
-        printf("Root 2 = %.2f\n", root2);
-    }
-    else if (d == 0)
-    {
-        root1 = -b / (2 * a);
+    p = strstr(str, pattern);
 
-        printf("Both roots are equal.\n");
-        printf("Root = %.2f\n", root1);
-    }
+    if (p != NULL)
+        printf("Pattern found at index: %d", (int)(p - str));
     else
-    {
-        printf("Roots are imaginary.\n");
-    }
+        printf("Pattern not found");
 
     return 0;
 }
+
